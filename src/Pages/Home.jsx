@@ -1,5 +1,3 @@
-import Header from "../components/Header"
-import Footer from "../components/Footer"
 import news1 from "../assets/home/train1.svg"
 import news2 from "../assets/home/Train2.svg"
 import news3 from "../assets/home/Train3.svg"
@@ -14,9 +12,7 @@ import bottomBg from "../assets/home/Bgnine.svg"
 
 const Home = () => {
   return (
-    <div className="flex flex-col h-screen font-poppins">
-        <Header />
-        <main className="font-poppins">
+        <main>
           <section className="flex">
             <div className="text-white w-2/3 bg-cover bg-center h-96 p-8"
             style={{backgroundImage: `url(${heroImg})`}}>
@@ -124,10 +120,6 @@ const Home = () => {
             </div>
           </section>
         </main>
-        <div className="mt-auto">
-        <Footer />
-        </div>
-    </div>
   )
 }
 

@@ -1,10 +1,6 @@
-import Header from "../components/Header"
-import Footer from "../components/Footer"
 
 const About = () => {
   return (
-    <div className="flex flex-col h-screen font-poppins">
-        <Header />
         <main>
             <section className="text-center w-2/3 mx-auto my-12 text-gray-600">
                 <h2 className="font-bold text-4xl">TranSafe</h2>
@@ -15,10 +11,6 @@ const About = () => {
                 <h2>Team Members</h2>
             </section>
         </main>
-        <div className="mt-auto">
-            <Footer />
-        </div>
-    </div>
   )
 }
 

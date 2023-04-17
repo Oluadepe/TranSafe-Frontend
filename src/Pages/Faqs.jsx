@@ -6,8 +6,6 @@ import iconTwo from "../assets/faq/questionicon.svg"
 
 const Faqs = () => {
   return (
-    <div className="flex flex-col h-screen font-poppins">
-        <Header />
         <main>
             <section className="bg-green-100">
                 <div className="w-11/12 flex mx-auto items-center justify-between">
@@ -46,10 +44,6 @@ const Faqs = () => {
             </div>
           </section>
         </main>
-        <div className="mt-auto">
-        <Footer />
-        </div>
-    </div>
   )
 }
 
