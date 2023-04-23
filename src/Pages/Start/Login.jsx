@@ -58,7 +58,7 @@ const Login = () => {
                 }
                 label="Remember me"
               />
-              <button className="bg-green-700 py-3 w-4/6 mx-auto text-white font-semibold">Log In</button>
+              <Link to="/dashboard" className="bg-green-700 py-3 w-4/6 mx-auto text-white font-semibold text-center">Log In</Link>
             </form>
             <div className="flex flex-col">
             <p className="mt-8 mb-2 text-sm">Don't have an account?</p>

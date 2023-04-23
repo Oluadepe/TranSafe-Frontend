@@ -3,6 +3,7 @@ import Footer from "../components/Footer"
 import bottomBg from "../assets/home/Bgnine.svg"
 import iconOne from "../assets/faq/Questions.svg"
 import iconTwo from "../assets/faq/questionicon.svg"
+import Questions from "../components/Questions"
 
 const Faqs = () => {
   return (
@@ -25,6 +26,9 @@ const Faqs = () => {
                 </div>
                 </div>
             </section>
+            <div>
+              <Questions />
+            </div>
             <section className="text-center p-4 my-8">
                 <h4 className="font-semibold text-xl">Still have any question?</h4>
                 <p className="mb-4">Contact us and we will reply you within 24 hours</p>
@@ -47,4 +51,4 @@ const Faqs = () => {
   )
 }
 
-export default Faqs
+export default Faqs;

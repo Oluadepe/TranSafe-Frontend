@@ -7,7 +7,7 @@ import { TextField,
         FormControlLabel,
         InputLabel,
         MenuItem,
-        Select,
+        Select, FormControl,
         Grid} from "@mui/material"
 import { useState } from "react"
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai"
@@ -23,25 +23,28 @@ const SignUp = () => {
     <main>
       <div className="bg-cover bg-center h-screen mb-12 p-8 flex items-center justify-center"
         style={{backgroundImage: `url(${BgImg})`}}>
-        <div className="bg-green-100 w-3/6 rounded-md p-4">
+        <div className="bg-green-100 w-3/6 rounded-md p-6">
           <h3 className="font-bold text-2xl text-center mb-4 text-green-700">Sign Up</h3>
             <form action="" className="flex flex-col">
             <Grid container spacing={0} alignItems="center" className="flex justify-between">
               <Grid items>
+          <FormControl sx={{ minWidth: 120 }} size="small">
+              <InputLabel id="demo-simple-select-label">Title</InputLabel>
                 <Select
-                labelId="dropdownLabel"
-                id="dropdown"
-                size="small">
-                <MenuItem value="">None</MenuItem>
-                <MenuItem value="">Mr</MenuItem>
-                <MenuItem value="">Mrs</MenuItem>
-                <MenuItem value="">Ms</MenuItem>
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Title">
+                <MenuItem value="mr">Mr</MenuItem>
+                <MenuItem value="mrs">Mrs</MenuItem>
+                <MenuItem value="ms">Ms</MenuItem>
                 </Select> 
+                </FormControl>
               </Grid>
                 <Grid items className="">
                   <TextField 
                   label="First Name" 
-                  size="small"/>
+                  size="small"
+                  />
                 </Grid>
                 <Grid items className="">
                   <TextField 
