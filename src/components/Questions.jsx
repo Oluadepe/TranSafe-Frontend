@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Tabs, Tab, Typography, Box } from "@mui/material"
 import PropTypes from 'prop-types';
+import TrainQuestions from "./TrainQuestions";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -45,7 +46,7 @@ const Questions = () => {
     return (
         <Box
         sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
-        className="w-4/6 mx-auto my-12">
+        className="w-4/6 mx-auto my-36">
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -60,15 +61,21 @@ const Questions = () => {
          <Tab label="Routes" {...a11yProps(3)} className="focus-within:bg-green-100 focus-within:rounded-md"/>
          <Tab label="Routes" {...a11yProps(3)} className="focus-within:bg-green-100 focus-within:rounded-md"/>
       </Tabs>
-      <div className="bg-green-100 rounded-md w-2/3 ml-2">
-      <TabPanel value={value} index={0}>
-        Item One
+      <div className=" w-2/3 ml-2">
+      <TabPanel value={value} index={0} className="flex items-center bg-green-100 rounded-md">
+        <TrainQuestions />
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
+      <TabPanel value={value} index={1} className="flex items-center bg-green-100 rounded-md">
+      <TrainQuestions />
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
+      <TabPanel value={value} index={2} className="flex items-center bg-green-100 rounded-md">
+      <TrainQuestions />
+      </TabPanel>
+      <TabPanel value={value} index={3} className="flex items-center bg-green-100 rounded-md">
+      <TrainQuestions />
+      </TabPanel>
+      <TabPanel value={value} index={4} className="flex items-center bg-green-100 rounded-md">
+      <TrainQuestions />
       </TabPanel>
       </div>
     </Box>

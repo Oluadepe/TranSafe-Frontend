@@ -9,6 +9,7 @@ import { CiMoneyBill } from "react-icons/ci"
 import { FaRecycle } from "react-icons/fa"
 import heroImg from "../assets/home/Bgone.svg"
 import bottomBg from "../assets/home/Bgnine.svg"
+import Reviews from "../components/Reviews"
 
 const Home = () => {
   return (
@@ -42,6 +43,9 @@ const Home = () => {
           </section>
           <section>
           <h2 className="font-bold text-4xl text-gray-700 my-12 text-center capitalize">what our users say</h2>
+          <div className="mb-18">
+            <Reviews />
+          </div>
           </section>
           <section>
             <h2 className="font-bold text-4xl text-gray-700 my-12 text-center capitalize">Where we go</h2>
@@ -114,8 +118,8 @@ const Home = () => {
               <p className="text-md">Subscribe to receive the latest news and updates about Transafe. We promise not to spam you!</p>
             </div>
             <div className="w-6/12">
-              <input type="text" placeholder="enter your email address" className=" rounded-md px-8 py-2  w-4/6"/>
-              <button className="bg-green-700 text-white rounded-md px-8 py-2 w-2/6">Subscribe</button>
+              <input type="text" placeholder="enter your email address" className=" rounded-tl-md rounded-bl-md px-8 py-2  w-4/6"/>
+              <button className="bg-green-700 text-white rounded-tr-md rounded-br-md px-8 py-2 w-2/6">Subscribe</button>
               </div>
             </div>
           </section>

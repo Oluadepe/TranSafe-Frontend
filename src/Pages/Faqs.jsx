@@ -17,8 +17,8 @@ const Faqs = () => {
                     <h2 className="text-gray-700 font-bold text-3xl">Do you have any questions?</h2>
                     <p className="mb-4 mt-2 text-md">Search here to get answers to your questions.</p>
                     <div className="w-6/12">
-                    <input type="text" placeholder="Type your question here" className=" rounded-md px-8 py-2  w-4/6"/>
-                    <button className="bg-green-700 text-white rounded-md px-8 py-2 w-2/6">Search</button>
+                    <input type="text" placeholder="Type your question here" className=" rounded-tl-md rounded-bl-md px-8 py-2  w-4/6"/>
+                    <button className="bg-green-700 text-white rounded-tr-md rounded-br-md px-8 py-2 w-2/6">Search</button>
                     </div>
                 </div>
                 <div className="w-1/6">
@@ -42,8 +42,8 @@ const Faqs = () => {
               <p className="text-md">Subscribe to receive the latest news and updates about Transafe. We promise not to spam you!</p>
             </div>
             <div className="w-6/12">
-              <input type="text" placeholder="enter your email address" className=" rounded-md px-8 py-2  w-4/6"/>
-              <button className="bg-green-700 text-white rounded-md px-8 py-2 w-2/6">Subscribe</button>
+              <input type="text" placeholder="enter your email address" className=" rounded-tl-md rounded-bl-md px-8 py-2  w-4/6"/>
+              <button className="bg-green-700 text-white rounded-tr-md rounded-br-md px-8 py-2 w-2/6">Subscribe</button>
               </div>
             </div>
           </section>
