@@ -13,7 +13,7 @@ const Layout = () => {
       <div className="w-1/6 flex flex-col bg-green-200 h-screen pt-10 px-8 text-gray-700 font-semibold">
         <NavLink to="/dashboard" className="mt-12 mb-4 flex items-center"><MdDashboard className="mr-3"/> Dashboard</NavLink>
         <NavLink to="profile" className="mb-4 flex items-center"><FaUserCircle className="mr-3"/> Profile</NavLink>
-        <NavLink className="mb-4 flex items-center"><GrTransaction className="mr-3"/>Transaction History</NavLink>
+        <NavLink className="mb-4 flex items-center" to="transactionhistory"><GrTransaction className="mr-3"/>Transaction History</NavLink>
         <NavLink to="booktrain" className="flex items-center"><BsFillBookmarkPlusFill className="mr-3"/> Book a train</NavLink>
       </div>
     <div className="w-5/6">  

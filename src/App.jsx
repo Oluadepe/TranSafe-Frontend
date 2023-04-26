@@ -15,6 +15,7 @@ import Profile from "./Pages/User/Profile/Profile";
 import MainLayout from "./components/Layout/MainLayout";
 import Timetable from "./Pages/Timetable";
 import BookTrain from "./Pages/User/BookTrain/BookTrain";
+import TransactionHistory from "./Pages/User/Transaction/TransactionHistory";
 
 
 
@@ -33,6 +34,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route index  element={<Dashboard/>} />
     <Route path="profile" element={<Profile />} />
     <Route path="booktrain" element={<BookTrain />} />
+    <Route path="transactionhistory" element={<TransactionHistory />} />
   </Route>
   </Route>
 

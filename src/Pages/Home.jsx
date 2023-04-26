@@ -10,6 +10,7 @@ import { FaRecycle } from "react-icons/fa"
 import heroImg from "../assets/home/Bgone.svg"
 import bottomBg from "../assets/home/Bgnine.svg"
 import Reviews from "../components/Reviews"
+import FindTrain from "../components/FindTrain"
 
 const Home = () => {
   return (
@@ -19,6 +20,9 @@ const Home = () => {
             style={{backgroundImage: `url(${heroImg})`}}>
             <h1 className="text-6xl font-bold my-4 capitalize">Buy tickets With No Hassles</h1>
               <p className="text-xl">Transafe prioritizes your experience in acquiring your train tickets. Thank you for always trusting us.</p>
+            </div>
+            <div className="1/3 p-8">
+              <FindTrain />
             </div>
           </section>
           <section>
