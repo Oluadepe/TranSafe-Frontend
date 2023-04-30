@@ -7,10 +7,15 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
 
     - name: Install dependencies
       run: npm install
@@ -19,7 +24,7 @@ jobs:
       run: npm run build
 
     - name: Deploy to server
-      uses: easingthemes/ssh-deploy@v2.3.3
+      uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         SSH_CREDENTIALS: ${{ secrets.SSH_CREDENTIALS }}
@@ -27,7 +32,7 @@ jobs:
       with:
         local_dir: "TranSafe-Frontend/dist"
         remote_dir: "${{ fromJSON(secrets.SSH_CREDENTIALS).SSH_PATH }}"
-        exclude: ".git/*"
+        exclude: ".git/*, /node_modules/"
 
     - name: Cleanup previous build
       env:
