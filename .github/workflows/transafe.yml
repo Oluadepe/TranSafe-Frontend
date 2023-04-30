@@ -1,0 +1,36 @@
+name: Transafe Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Delete previous build on server
+      run: |
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} "sudo rm -rf /var/www/TranSafe-Frontend/Render"
+
+    - name: Build app
+      run: npm run build
+
+    - name: Deploy to server
+      uses: easingthemes/ssh-deploy@v2.3.3
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        ARGS: "-rltgoDzvO --delete"
+      with:
+        server: 54.219.53.71
+        username: ubuntu
+        port: 22
+        local_path: ./build
+        remote_path: /var/www/TranSafe-Frontend/Render
