@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     
 
     steps:
@@ -39,7 +39,7 @@ jobs:
       run: npm run build
 
     - name: Deploy Transafe to server
-      uses: easingthemes/ssh-deploy@main
+      uses: appleboy/ssh-action@master
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         host: ${{ secrets.REMOTE_HOST }}
