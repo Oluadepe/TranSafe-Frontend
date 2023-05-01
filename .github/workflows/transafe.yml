@@ -27,7 +27,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.SSH_PORT }}
+        
 
     - name: Cleanup previous build
       uses: easingthemes/ssh-deploy@main
@@ -62,4 +62,4 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.SSH_PORT }}
+        
