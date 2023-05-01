@@ -31,8 +31,8 @@ jobs:
         SSH_CMD_ARGS: -o StrictHostKeyChecking=no
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        remoteHost: ${{ secrets.REMOTE_HOST }}
-        remoteUser: ${{ secrets.REMOTE_USER }}
+        remoteHost: "52.91.77.247"
+        remoteUser: "ubuntu"
         ARGS: "-r"
         SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
       
