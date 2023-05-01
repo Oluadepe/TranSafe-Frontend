@@ -25,7 +25,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USER }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
         ARGS: "-r"
         SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
       with:
