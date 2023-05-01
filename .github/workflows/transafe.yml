@@ -20,23 +20,46 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Build the app
-      run: npm run build
+    - name: Stop Nginx
+      uses: appleboy/ssh-action@master
+      with:
+        command: "sudo systemctl stop nginx"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        port: ${{ secrets.SSH_PORT }}
 
-    - name: Deploy to server
+    - name: Cleanup previous build
       uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_CREDENTIALS: ${{ secrets.SSH_CREDENTIALS }}
-        ARGS: "-rltgoDzvO --delete"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        ARGS: "-r"
+        SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
       with:
-        local_dir: "TranSafe-Frontend/dist"
-        remote_dir: "${{ fromJSON(secrets.SSH_CREDENTIALS).SSH_PATH }}"
-        exclude: ".git/*, /node_modules/"
+        SOURCE: "./TranSafe-Frontend/dist"
+        TARGET: "/var/www/TranSafe-Frontend/Render"
+        EXCLUDE: ".git/*, /node_modules"
 
-    - name: Cleanup previous build
+    - name: Build the app
+      run: npm run build
+
+    - name: Deploy Transafe to server
+      uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        SSH_CREDENTIALS: ${{ secrets.SSH_CREDENTIALS }}
-      run: |
-        ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") ${{ fromJSON(secrets.SSH_CREDENTIALS).SSH_USER }}@${{ fromJSON(secrets.SSH_CREDENTIALS).SSH_HOST }} -p ${{ fromJSON(secrets.SSH_CREDENTIALS).SSH_PORT }} "sudo rm -rf ${{ fromJSON(secrets.SSH_CREDENTIALS).SSH_PATH }}/Render"
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        ARGS: "-rltgoDzvO --delete"
+      with:
+        SOURCE: "./TranSafe-Frontend/dist"
+        TARGET: "/var/www/TranSafe-Frontend/Render"
+        EXCLUDE: ".git/*, /node_modules"
+
+    - name: Start Nginx
+      uses: appleboy/ssh-action@master
+      with:
+        command: "sudo systemctl start nginx"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        port: ${{ secrets.SSH_PORT }}
