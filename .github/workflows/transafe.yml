@@ -32,7 +32,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER_DEVELOPMENT }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
         ARGS: "-r"
         SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
       
@@ -44,8 +44,9 @@ jobs:
       uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        port: ${{ secrets.REMOTE_PORT }}
         ARGS: "-rltgoDzvO --delete"
       with:
         SOURCE: "./TranSafe-Frontend/dist"
