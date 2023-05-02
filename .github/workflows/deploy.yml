@@ -42,7 +42,7 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-        ARGS: "-rltgoDzvO --delete"
+        ARGS: "-rltgoDzv --delete"
       with:
         SOURCE: "./TranSafe-Frontend/dist"
         TARGET: "/var/www/TranSafe-Frontend/Render"
