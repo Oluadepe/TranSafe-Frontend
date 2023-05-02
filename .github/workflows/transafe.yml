@@ -31,18 +31,19 @@ jobs:
         
     - name: Cleanup previous build
       uses: appleboy/ssh-action@master
-      with:
-        SOURCE: "./TranSafe-Frontend/dist"
-        TARGET: "/var/www/TranSafe-Frontend/Render"
-        EXCLUDE: ".git/*, /node_modules"
-        REMOTE_PORT: 22
-        SSH_CMD_ARGS: -o StrictHostKeyChecking=no
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         host: "54.219.53.71"
         username: "ubuntu"
         port: 22
         SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
+      with:
+        SOURCE: "./TranSafe-Frontend/dist"
+        TARGET: "/var/www/TranSafe-Frontend/Render"
+        EXCLUDE: ".git/*, /node_modules"
+        REMOTE_PORT: 22
+        SSH_CMD_ARGS: -o StrictHostKeyChecking=no
+      
       
 
     - name: Build the app
