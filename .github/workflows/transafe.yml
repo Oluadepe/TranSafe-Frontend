@@ -41,7 +41,7 @@ jobs:
         host: "54.219.53.71"
         username: "ubuntu"
         port: 22
-        SOURCE: "./TranSafe-Frontend/dist"
+        SOURCE: "./build"
         TARGET: "/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
 
