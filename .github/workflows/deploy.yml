@@ -54,6 +54,5 @@ jobs:
       with:
         command: "sudo systemctl start nginx"
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        port: ${{ secrets.REMOTE_PORT }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
