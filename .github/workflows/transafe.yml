@@ -25,7 +25,7 @@ jobs:
       with:
         command: "sudo systemctl stop nginx"
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        host: "52.91.77.247"
+        host: "ssh 52.91.77.247"
         username: "ubuntu"
         port: "22"
         
