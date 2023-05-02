@@ -18,17 +18,7 @@ jobs:
         node-version: '20.x'
 
     - name: Install dependencies
-      run: npm install
-
-    - name: Stop Nginx
-      uses: easingthemes/ssh-deploy@main
-      with:
-        command: "sudo systemctl stop nginx"
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-        REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-        
+      run: npm install       
 
     - name: Cleanup previous build
       uses: easingthemes/ssh-deploy@main
