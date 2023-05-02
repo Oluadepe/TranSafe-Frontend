@@ -52,7 +52,7 @@ jobs:
       uses: appleboy/ssh-action@master
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        host: ${{ secrets.REMOTE_HOST }}
+        host: "54.219.53.71"
         username: ${{ secrets.REMOTE_USER }}
         port: ${{ secrets.REMOTE_PORT }}
       with:
