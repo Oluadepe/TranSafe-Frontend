@@ -27,7 +27,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
-        port: "22"
+        port: ${{ secrets.REMOTE_PORT }}
         
     - name: Cleanup previous build
       uses: appleboy/ssh-action@master
