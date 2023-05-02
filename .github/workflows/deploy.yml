@@ -43,8 +43,9 @@ jobs:
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
         ARGS: "-rltgoDzv --delete"
+        SCRIPT_BEFORE: "sudo ls"
       with:
-        SOURCE: "./TranSafe-Frontend/dist"
+        SOURCE: "${{ github.workspace }}/"
         TARGET: "/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
 
