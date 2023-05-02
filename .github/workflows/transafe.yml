@@ -25,8 +25,8 @@ jobs:
       with:
         command: "sudo systemctl stop nginx"
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        host: "54.219.53.71"
-        username: "ubuntu"
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
         port: "22"
         
     - name: Cleanup previous build
