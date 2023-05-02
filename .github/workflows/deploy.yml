@@ -24,9 +24,9 @@ jobs:
       uses: easingthemes/ssh-deploy@main
       with:
         command: "sudo systemctl stop nginx"
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        host: "54.219.53.71"
-        username: "ubuntu"
+        sshPrivateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+        remoteHost: "54.219.53.71"
+        remoteUser: "ubuntu"
         port: 22
         
 
