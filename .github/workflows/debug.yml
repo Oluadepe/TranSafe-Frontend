@@ -26,18 +26,16 @@ jobs:
     - name: Print directory contents
       run: ls -la dist/
 
-    - name: Deploy Transafe to server
-      uses: easingthemes/ssh-deploy@main
+    - name: Deploy
+      uses: easingthemes/ssh-deploy@v2.1.5
+      with:
+        command: |
+          rsync -ravz --delete --exclude='.git/' --exclude='node_modules/' ./dist/ REMOTE_USER@REMOTE_IP:/
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-        ARGS: "-rltgoDzv --delete"
-        SCRIPT_BEFORE: "sudo ls"
-      with:
-        SOURCE: "${{ github.workspace }}/dist/"
-        TARGET: "/var/www/"
-        EXCLUDE: ".git/*, /node_modules"
+        REMOTE_IP: ${{ secrets.REMOTE_IP }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+
 
 
     - name: Debugging
