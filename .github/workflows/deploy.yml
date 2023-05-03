@@ -49,10 +49,12 @@ jobs:
         TARGET: "/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
 
+      nginx:  
+      needs: [deploy]   
     - name: Start Nginx
-      uses: easingthemes/ssh-run@main
+      uses: easingthemes/ssh-run@v3
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-        ARGS: "sudo systemctl start nginx"
+        ARGS: "sudo systemctl start nginx""
