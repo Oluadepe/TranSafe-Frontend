@@ -1,0 +1,58 @@
+name: Transafe Deploy to server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.x'
+
+    - name: Install dependencies
+      run: npm install       
+
+    - name: Build the app
+      run: npm run build
+    
+    - name: Print directory contents
+      run: ls -la dist/
+
+    - name: Set ARGS
+      id: set_args
+      run: echo "::set-output name=args::\"-t 'sudo rm -rf /var/www/TranSafe-Frontend/dist/*'; -t 'mkdir -p /var/www/TranSafe-Frontend/dist && exit'; -t 'sudo cp -r $SOURCE /var/www/TranSafe-Frontend/dist/'\""
+      shell: bash
+
+    - name: Deploy Transafe to server
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}      
+        ARGS: ${{ steps.set_args.outputs.args }}
+      with:
+        SOURCE: ${{ github.workspace }}/dist/
+        TARGET: /var/www/TranSafe-Frontend/
+        EXCLUDE: ".git/*,/node_modules"
+        AFTER_COMMAND: | 
+          - name: Restart Nginx
+            run: sudo systemctl restart nginx
+   
+    - name: Debugging
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: "54.219.53.71"
+        username: "ubuntu"
+        port: 22
+        script: |
+          echo "SSH connection successful"
+          ls -la /var/www/TranSafe-Frontend/dist/
