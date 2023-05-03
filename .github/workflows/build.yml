@@ -1,0 +1,74 @@
+name: Transafe Deploy to server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: dist
+
+      - name: Cleanup previous build
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+          ARGS: "-r"
+          SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
+        with:
+          SOURCE: "./dist/"
+          TARGET: "/var/www/TranSafe-Frontend/Render"
+          EXCLUDE: ".git/*, /node_modules"
+
+      - name: Deploy Transafe to server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+          ARGS: "-rltgoDzv --delete"
+          SCRIPT_BEFORE: "sudo ls"
+        with:
+          SOURCE: "./dist/"
+          TARGET: "/var/www/TranSafe-Frontend/Render"
+          EXCLUDE: ".git/*, /node_modules"
+          
+      - name: Start Nginx
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: "54.219.53.71"
+          username: "ubuntu"
+          port: 22
+          command: "sudo systemctl restart nginx"
