@@ -52,4 +52,4 @@ jobs:
         port: 22
         script: |
           echo "SSH connection successful"
-          ls -la /var/www/TranSafe-Frontend/Render/
+          ls -la /var/www/TranSafe-Frontend/dist/
