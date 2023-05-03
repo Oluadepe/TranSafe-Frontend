@@ -52,6 +52,7 @@ jobs:
     - name: Restart Nginx
       uses: appleboy/ssh-action@master
       with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USERNAME }}
         password: ${{ secrets.SSH_PASSWORD }}
