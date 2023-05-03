@@ -30,7 +30,7 @@ jobs:
       uses: easingthemes/ssh-deploy@v2.1.5
       with:
         command: |
-          rsync -ravz --delete --exclude='.git/' --exclude='node_modules/' ./dist/ REMOTE_USER@REMOTE_HOST:/
+          rsync -rav --delete --exclude .git --exclude node_modules --exclude .github --exclude .gitignore /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/ ubuntu@54.219.53.71:/home/ubuntu/
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
