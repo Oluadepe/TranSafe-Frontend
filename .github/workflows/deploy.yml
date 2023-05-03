@@ -17,6 +17,9 @@ jobs:
       with:
         node-version: '20.x'
 
+    - name: Install dependencies
+      run: npm install       
+
     - name: Cleanup previous build
       uses: easingthemes/ssh-deploy@main
       env:
@@ -24,10 +27,10 @@ jobs:
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
         ARGS: "-r"
-        SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render/*"
+        SCRIPT_BEFORE: "sudo rm -rf /var/www/TranSafe-Frontend/Render"
       with:
-        SOURCE: "/var/www/TranSafe-Frontend/Render/"
-        TARGET: ""
+        SOURCE: "./TranSafe-Frontend/dist"
+        TARGET: "/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
 
     - name: Build the app
@@ -42,16 +45,15 @@ jobs:
         ARGS: "-rltgoDzv --delete"
         SCRIPT_BEFORE: "sudo ls"
       with:
-        SOURCE: "./dist/"
-        TARGET: "/var/www/TranSafe-Frontend/Render/"
+        SOURCE: "${{ github.workspace }}/"
+        TARGET: "/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
-
-    - name: Restart Nginx
+   
+    - name: Start Nginx
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.REMOTE_HOST }}
-        username: ${{ secrets.REMOTE_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        port: ${{ secrets.SSH_PORT }}
-        script: |
-          sudo systemctl restart nginx
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: "54.219.53.71"
+        username: "ubuntu"
+        port: 22
+        command: "sudo systemctl restart nginx"
