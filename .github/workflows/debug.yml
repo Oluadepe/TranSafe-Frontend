@@ -33,8 +33,7 @@ jobs:
           rsync -rav --delete --exclude .git --exclude node_modules --exclude .github --exclude .gitignore /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/ ubuntu@54.219.53.71:/home/ubuntu/
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+        
 
 
 
