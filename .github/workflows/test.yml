@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Set ARGS
         id: set_args
-        run: echo "::set-output name=args::'-t \"sudo rm -rf /var/www/TranSafe-Frontend/dist/*\" -t \"mkdir -p /var/www/TranSafe-Frontend/dist && exit\" -t \"sudo cp -r $SOURCE/* /var/www/TranSafe-Frontend/dist/\"'"
+        run: echo "::set-output name=args::'-t \"sudo rm -rf /var/www/TranSafe-Frontend/dist/*\" -t \"mkdir -p /var/www/TranSafe-Frontend/dist && exit\" -t \"sudo cp -r /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/dist/* /var/www/TranSafe-Frontend/dist/"'"
         shell: bash
 
   deploy:
