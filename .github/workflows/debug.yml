@@ -39,7 +39,7 @@ jobs:
 
 
     - name: Debugging
-      uses: appleboy/ssh-action@v2
+      uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USERNAME }}
