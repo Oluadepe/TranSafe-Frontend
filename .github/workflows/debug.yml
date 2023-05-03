@@ -31,11 +31,11 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
         ARGS: "-rltgoDzv --delete"
+        SCRIPT_BEFORE: "sudo ls"
       with:
         SOURCE: "./dist/"
-        TARGET: "/var/www/TranSafe-Frontend/Render"
+        TARGET: "ubuntu@${{ secrets.REMOTE_HOST }}:/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
 
     - name: Debugging
