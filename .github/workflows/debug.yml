@@ -28,16 +28,18 @@ jobs:
 
     - name: Deploy Transafe to server
       uses: easingthemes/ssh-deploy@main
-      env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-          ARGS: "-rltgoDzv --delete"
-          SCRIPT_BEFORE: "sudo ls"
       with:
-          SOURCE: "./dist/"
-          TARGET: "/var/www/TranSafe-Frontend/Render"
-          EXCLUDE: ".git/*, /node_modules"
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+        SCRIPT_BEFORE: "sudo ls"
+        SOURCE: ${{ github.workspace }}/dist/
+        TARGET: /var/www/TranSafe-Frontend/
+        EXCLUDE: ".git/*, /node_modules"
+        ARGS: |
+          rm -rf /var/www/TranSafe-Frontend/dist
+          cp -r $SOURCE /var/www/TranSafe-Frontend/
+
         
     - name: Debugging
       uses: appleboy/ssh-action@v0.1.6
