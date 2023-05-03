@@ -28,15 +28,17 @@ jobs:
 
     - name: Deploy
       uses: easingthemes/ssh-deploy@v2.1.5
-      with:
-        command: |
-          rsync -rav --delete --exclude .git --exclude node_modules --exclude .github --exclude .gitignore /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/ ubuntu@54.219.53.71:/home/ubuntu/
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+        ARGS: "-rltgoDzv --delete"
+        SCRIPT_BEFORE: "sudo ls"
+      with:
+        SOURCE: "${{ github.workspace }}/dist/"
+        TARGET: "/var/www/"
+        EXCLUDE: ".git/*, /node_modules"
         
-
-
-
     - name: Debugging
       uses: appleboy/ssh-action@v0.1.6
       with:
