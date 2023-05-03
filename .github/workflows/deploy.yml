@@ -54,7 +54,7 @@ jobs:
       with:
         command: sudo systemctl start nginx
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
         host: "54.219.53.71"
         username: "ubuntu"
         port: 22
