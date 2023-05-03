@@ -1,0 +1,49 @@
+name: Transafe Deploy to server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+
+    - name: Install dependencies
+      run: npm install       
+
+    - name: Build the app
+      run: npm run build
+    
+    - name: Print directory contents
+      run: ls -la dist/
+
+    - name: Deploy Transafe to server
+      uses: easingthemes/ssh-deploy@v2.2.5
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+        ARGS: "-rltgoDzv --delete"
+      with:
+        SOURCE: "./dist/"
+        TARGET: "/var/www/TranSafe-Frontend/Render"
+        EXCLUDE: ".git/*, /node_modules"
+
+    - name: Debugging
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo "SSH connection successful"
+          ls -la /var/www/TranSafe-Frontend/Render/
