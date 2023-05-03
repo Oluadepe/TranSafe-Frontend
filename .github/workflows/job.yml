@@ -27,7 +27,7 @@ jobs:
         run: sudo apt-get install -y rsync
 
       - name: Deploy over SSH
-        uses: easingthemes/ssh-deploy@v3
+        uses: easingthemes/ssh-deploy@v3.0.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
