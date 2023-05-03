@@ -33,8 +33,8 @@ jobs:
           rsync -ravz --delete --exclude='.git/' --exclude='node_modules/' ./dist/ REMOTE_USER@REMOTE_HOST:/
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_IP: ${{ secrets.REMOTE_IP }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
 
 
 
