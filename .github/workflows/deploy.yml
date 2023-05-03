@@ -50,7 +50,7 @@ jobs:
         EXCLUDE: ".git/*, /node_modules"
 
     - name: Start Nginx
-      uses: easingthemes/ssh-deploy@main
+      uses: easingthemes/ssh-run@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
