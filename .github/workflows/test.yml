@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  set_args:
+    runs-on: ubuntu-latest
+    outputs:
+      args: ${{ steps.set_args.outputs.args }}
+    steps:
+      - name: Set ARGS
+        id: set_args
+        run: echo "::set-output name=args::'-t \"sudo rm -rf /var/www/TranSafe-Frontend/dist/*\" -t \"mkdir -p /var/www/TranSafe-Frontend/dist && exit\" -t \"sudo cp -r $SOURCE/* /var/www/TranSafe-Frontend/dist/\"'"
+        shell: bash
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [set_args]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Build Production Files
+        run: yarn build
+
+      - name: Rsync Deploy
+        uses: easingthemes/ssh-deploy@v3
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY  }}
+          ARGS: ${{ needs.set_args.outputs.args }}
+        with:
+          args: ${{ env.ARGS }}
+          source: "dist/"
+          server: ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
+          destination: "/var/www/TranSafe-Frontend/"
+          exclude: ".git,node_modules,dist"
