@@ -36,11 +36,10 @@ jobs:
         SOURCE: ${{ github.workspace }}/dist/
         TARGET: /var/www/TranSafe-Frontend/
         EXCLUDE: ".git/*,/node_modules"
-        AFTER_COMMAND: |
+        AFTER_COMMAND: | 
           - name: Restart Nginx
             run: sudo systemctl restart nginx
-
-        
+   
     - name: Debugging
       uses: appleboy/ssh-action@v0.1.6
       with:
