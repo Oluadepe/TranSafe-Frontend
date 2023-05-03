@@ -55,6 +55,6 @@ jobs:
         command: sudo systemctl start nginx
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+        host: "54.219.53.71"
+        username: "ubuntu"
         
