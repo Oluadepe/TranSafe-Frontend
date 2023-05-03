@@ -20,9 +20,9 @@ jobs:
       run: npm run build
 
     - name: Run rsync deploy action
-      uses: easingthemes/ssh-deploy@v3.0.0
+      uses: easingthemes/ssh-deploy@v3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
         args: -rltgoDzvO --delete --exclude=node_modules --exclude=.git --exclude=dist --exclude=.* --exclude=_* /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/dist/ REMOTE_USER@REMOTE_HOST:/var/www/TranSafe-Frontend/
