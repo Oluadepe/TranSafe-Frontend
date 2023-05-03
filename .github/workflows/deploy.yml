@@ -48,9 +48,7 @@ jobs:
         SOURCE: "${{ github.workspace }}/"
         TARGET: "/var/www/TranSafe-Frontend/Render"
         EXCLUDE: ".git/*, /node_modules"
-
-      nginx:  
-      needs: [deploy]   
+   
     - name: Start Nginx
       uses: easingthemes/ssh-run@v3
       env:
