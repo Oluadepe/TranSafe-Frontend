@@ -27,7 +27,7 @@ jobs:
       run: ls -la dist/
 
     - name: Deploy Transafe to server
-      uses: easingthemes/ssh-deploy@v2.2.5
+      uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
@@ -39,7 +39,7 @@ jobs:
         EXCLUDE: ".git/*, /node_modules"
 
     - name: Debugging
-      uses: appleboy/ssh-action@v0.1.6
+      uses: appleboy/ssh-action@main
       with:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USERNAME }}
