@@ -6,38 +6,34 @@ on:
       - main
 
 jobs:
-  set_args:
-    runs-on: ubuntu-latest
-    outputs:
-      args: ${{ steps.set_args.outputs.args }}
-    steps:
-      - name: Set ARGS
-        id: set_args
-        run: echo "::set-output name=args::'-t \"sudo rm -rf /var/www/TranSafe-Frontend/dist/*\" -t \"mkdir -p /var/www/TranSafe-Frontend/dist && exit\" -t \"sudo cp -r /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/dist/* /var/www/TranSafe-Frontend/dist/\"'"
-        shell: bash
   deploy:
     runs-on: ubuntu-latest
-    needs: [set_args]
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Install Dependencies
-        run: yarn
+    - name: Install Dependencies
+      run: npm install
 
-      - name: Build Production Files
-        run: yarn build
+    - name: Build the Project
+      run: npm run build
 
-      - name: Rsync Deploy
-        uses: easingthemes/ssh-deploy@v3
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY  }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-          ARGS: ${{ needs.set_args.outputs.args }}
-        with:
-          args: ${{ env.ARGS }}
-          source: "dist/"
-          server: ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}
-          destination: "/var/www/TranSafe-Frontend/"
-          exclude: ".git,node_modules,dist"
+    - name: Run rsync deploy action
+      uses: easingthemes/ssh-deploy@v3.0.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
+        args: -rltgoDzvO --delete --exclude=node_modules --exclude=.git --exclude=dist --exclude=.* --exclude=_* /home/runner/work/TranSafe-Frontend/TranSafe-Frontend/dist/ REMOTE_USER@REMOTE_HOST:/var/www/TranSafe-Frontend/
+
+    - name: Log rsync output
+      run: echo "${{ steps.rsync.outputs.stdout }}"
+
+    - name: Check rsync status
+      run: |
+        if [ ${{ steps.rsync.outputs.status }} -eq 0 ]; then
+          echo "Deployment successful"
+        else
+          echo "Deployment failed"
+        fi
