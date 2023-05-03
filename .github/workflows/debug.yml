@@ -28,11 +28,12 @@ jobs:
 
     - name: Deploy Transafe to server
       uses: easingthemes/ssh-deploy@main
-      with:
+      env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}      
         ARGS: "-t 'sudo rm -rf /var/www/TranSafe-Frontend/dist/*' -t 'mkdir -p /var/www/TranSafe-Frontend/dist && exit' -t 'sudo cp -r $SOURCE /var/www/TranSafe-Frontend/dist/'"
+      with:
         SOURCE: ${{ github.workspace }}/dist/
         TARGET: /var/www/TranSafe-Frontend/
         EXCLUDE: ".git/*,/node_modules"
