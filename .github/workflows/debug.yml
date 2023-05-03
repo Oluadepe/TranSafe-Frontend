@@ -35,7 +35,7 @@ jobs:
         ARGS: "-t 'sudo rm -rf /var/www/TranSafe-Frontend/dist/*' -t 'mkdir -p /var/www/TranSafe-Frontend/dist && exit' -t 'sudo cp -r $SOURCE /var/www/TranSafe-Frontend/dist/'"
         SOURCE: ${{ github.workspace }}/dist/
         TARGET: /var/www/TranSafe-Frontend/
-        EXCLUDE: "'.git/*','/node_modules'"
+        EXCLUDE: ".git/*, /node_modules"
         AFTER_COMMAND: |
           - name: Restart Nginx
             run: sudo systemctl restart nginx
