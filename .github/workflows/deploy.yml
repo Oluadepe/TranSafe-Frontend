@@ -50,10 +50,11 @@ jobs:
         EXCLUDE: ".git/*, /node_modules"
    
     - name: Start Nginx
-      uses: easingthemes/ssh-deploy@main
+      uses: appleboy/ssh-action@master
+      with:
+        command: sudo systemctl start nginx
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         REMOTE_USER: ${{ secrets.REMOTE_USERNAME }}
-        script: |
-          sudo systemctl start nginx
+        
